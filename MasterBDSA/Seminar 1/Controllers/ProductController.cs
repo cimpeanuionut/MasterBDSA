@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Microsoft.Extensions.Hosting.Internal;
 using Seminar_1.Models.Entities;
 using Seminar_1.Models.VMs;
@@ -51,38 +52,81 @@ namespace Seminar_1.Controllers
             return View("Index", context.Products.Select(p => new ProductVM().ProdToProdVM(p)).ToList());
         }
 
-        //[HttpGet]
-        //[Route("Edit/{id}")]
-        //public IActionResult Edit(int id)
-        //{
-        //    var dto = service.GetProduct(id);
-        //    dto.ProductTypes = service.GetProductTypes();
-        //    return View(dto);
-        //}
+        [HttpGet]
+        [Route("Edit/{id}")]
+        public IActionResult Edit(int id)
+        {
+            var prod = context.Products.FirstOrDefault(p => p.Id == id);
 
-        //[HttpPost]
-        //[Route("Edit/{id}")]
-        //public IActionResult Edit(int id, ProductVM dto)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        ModelState.AddModelError(string.Empty, "There were some errors in your form");
-        //        dto.ProductTypes = service.GetProductTypes();
-        //        return View(dto);
-        //    }
+            if (prod == null)
+                return View("Index", context.Products.Select(p => new ProductVM().ProdToProdVM(p)).ToList());
+            else
+                return View(new ProductVM().ProdToProdVM(prod));
+        }
 
-        //    service.UpdateProduct(id, dto);
+        [HttpPost]
+        [Route("Edit/{id}")]
+        public IActionResult Edit(int id, ProductVM dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "There were some errors in your form");               
+                return View($"Edit/{id}", dto);
+            }
 
-        //    return View("Index", service.GetAllProducts());
-        //}
+            var prod = context.Products.FirstOrDefault(p => p.Id == id);
+            if (prod == null)
+                return View("Index", context.Products.Select(p => new ProductVM().ProdToProdVM(p)).ToList());
 
-        //[HttpDelete]
-        //[Route("Delete/{id}")]
-        //public JsonResult Delete(int id)
-        //{
-        //    service.DeleteProduct(id);
-        //    return Json(new { success = true, message = "Delete success" });
-        //}
+            var oldFileRelativePath = prod.ImagePath;
+            if (dto.ProducImage == null)
+                dto.ImagePath = oldFileRelativePath;
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(oldFileRelativePath))
+                {
+                    var olfFileFullPath = Path.Combine(hostEnvironment.WebRootPath, oldFileRelativePath);
+                    if (System.IO.File.Exists(olfFileFullPath))
+                        System.IO.File.Delete(olfFileFullPath);
+                }
+
+                SaveImage(dto);
+            }
+
+            prod.Name = dto.Name;
+            prod.Description = dto.Description;
+            prod.Price = dto.Price;
+            prod.IsAvailable = dto.IsAvailable;
+            prod.ImagePath = dto.ImagePath;
+
+            context.Products.Update(prod);
+            context.SaveChanges();
+
+
+            return View("Index", context.Products.Select(p => new ProductVM().ProdToProdVM(p)).ToList());
+        }
+
+        [HttpDelete]
+        [Route("Delete/{id}")]
+        public JsonResult Delete(int id)
+        {
+            var prod = context.Products.FirstOrDefault(p => p.Id == id);
+            if (prod == null)
+                return Json(new { success = true, message = "Already Deleted" });
+
+            if (!string.IsNullOrWhiteSpace(prod.ImagePath))
+            {
+                var filePath = Path.Combine(hostEnvironment.WebRootPath, prod.ImagePath);
+
+                if (System.IO.File.Exists(filePath))
+                    System.IO.File.Delete(filePath);
+            }
+
+            context.Products.Remove(prod);
+            context.SaveChanges();
+
+            return Json(new { success = true, message = "Delete success" });
+        }
 
         private void SaveImage(ProductVM dto)
         {

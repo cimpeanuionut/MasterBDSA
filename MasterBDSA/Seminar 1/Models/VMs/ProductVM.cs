@@ -41,10 +41,14 @@ namespace Seminar_1.Models.VMs
             return prod;
         }
 
-        public ProductVM ProdToProdVM(Product prod)
+        public ProductVM ProdToProdVM(Product? prod)
         {
+            if (prod == null)
+                return new ProductVM();
+
             var vm = new ProductVM();
 
+            vm.Id = prod.Id;
             vm.Name = prod.Name;
             vm.Description = prod.Description;
             vm.Price = prod.Price;

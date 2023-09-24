@@ -132,7 +132,8 @@ body {
 }
 
 .tableSelectedRow {
-    background-color: #F0E68C !important;
+    --bs-table-bg: #F0E68C !important;
+    --bs-table-striped-bg: #F0E68C !important;
     color: black;
 }
 
