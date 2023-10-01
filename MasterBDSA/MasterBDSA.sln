@@ -9,7 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Seminar 2", "Seminar 2", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Seminar 3", "Seminar 3", "{CDF42B17-0842-4DC4-AA1F-2F2E2E79B298}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seminar 1", "Seminar 1\Seminar 1.csproj", "{37CC2CEE-1268-40F0-B745-A6E9279D188A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seminar 1", "Seminar 1\Seminar 1.csproj", "{37CC2CEE-1268-40F0-B745-A6E9279D188A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seminar 2", "Seminar 2\Seminar 2.csproj", "{FCCD5275-6F83-4804-80D0-D329F5577CB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,12 +23,17 @@ Global
 		{37CC2CEE-1268-40F0-B745-A6E9279D188A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37CC2CEE-1268-40F0-B745-A6E9279D188A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37CC2CEE-1268-40F0-B745-A6E9279D188A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCCD5275-6F83-4804-80D0-D329F5577CB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCCD5275-6F83-4804-80D0-D329F5577CB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCCD5275-6F83-4804-80D0-D329F5577CB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCCD5275-6F83-4804-80D0-D329F5577CB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{37CC2CEE-1268-40F0-B745-A6E9279D188A} = {1FD519AD-93BB-4A12-A827-18A711019EBF}
+		{FCCD5275-6F83-4804-80D0-D329F5577CB2} = {65BA0C88-2FF1-4EE8-8728-B0E0D2F0B152}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5DAF2837-5383-45C9-AEE5-10A707109FBC}
