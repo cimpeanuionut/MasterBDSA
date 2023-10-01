@@ -20,8 +20,8 @@
             var products = new List<Product>();
 
             products.Add(new Product { Id = 1, Name = "Product1", Description = "D1", ImagePath = "img/img1.PNG", IsAvailable = true, Price = 20 });
-            products.Add(new Product { Id = 1, Name = "Product2", Description = "D2", ImagePath = "img/img2.PNG", IsAvailable = true, Price = 50 });
-            products.Add(new Product { Id = 1, Name = "Product3", Description = "D3", ImagePath = "img/img3.PNG", IsAvailable = true, Price = 100 });
+            products.Add(new Product { Id = 2, Name = "Product2", Description = "D2", ImagePath = "img/img2.PNG", IsAvailable = true, Price = 50 });
+            products.Add(new Product { Id = 3, Name = "Product3", Description = "D3", ImagePath = "img/img3.PNG", IsAvailable = true, Price = 100 });
 
             return products;
         }
