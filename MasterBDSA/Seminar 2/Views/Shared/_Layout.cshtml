@@ -3,6 +3,8 @@
 @{
     var shoppingList = HttpContextAccessor.HttpContext.Session.Get<List<int>>(SessionHelper.ShoppingCart);
     var shoppingCount = shoppingList == null ? 0 : shoppingList.Count;
+
+    bool isUserAuth = (HttpContextAccessor.HttpContext.User != null) && (HttpContextAccessor.HttpContext.User.Identity != null) && HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
 }
 
 <!DOCTYPE html>
@@ -35,6 +37,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark">Contact</a>
                         </li>
+
+                        @if (!isUserAuth)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" sp-area="" asp-controller="Login" asp-action="Index">Login</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" sp-area="" asp-controller="Login" asp-action="Logout">Logout</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" sp-area="" asp-controller="User" asp-action="Index">User</a>
+                            </li>                          
+                        }
 
                         <li class="nav-item">
                             <a class="nav-link text-dark"><span class="fas fa-shopping-cart"></span> &nbsp; (@shoppingCount)</a>
